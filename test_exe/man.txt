@@ -1,0 +1,20 @@
+Inspector для проверки упакованных исполняемых файлов
+PurePacker для упаковки
+
+Компиляция exe
+[32:]
+[packer:]
+cl /nologo /EHsc packer32.cpp /Fe:packer32.exe 
+[stub:]
+cl /nologo /c /GS- /EHsc /Oi stub32.cpp
+link /nologo /NODEFAULTLIB /SUBSYSTEM:WINDOWS /ENTRY:Start stub32.obj kernel32.lib user32.lib bcrypt.lib /OUT:stub32.exe
+
+    x64 Native Tools Command Prompt for Visual Studio
+[64:]
+[packer:]
+cl /EHsc /O2 /std:c++17 packer64.cpp /Fe:packer64.exe bcrypt.lib
+[stub:]
+cl /EHsc /O2 /std:c++17 stub64.cpp /Fe:stub64.exe bcrypt.lib /link /SUBSYSTEM:WINDOWS /ENTRY:Start kernel32.lib user32.lib
+
+[gui:]
+cl /EHsc /O2 /std:c++17 gui\gui.cpp /Fe:gui.exe /link /SUBSYSTEM:WINDOWS user32.lib comdlg32.lib gdi32.lib
